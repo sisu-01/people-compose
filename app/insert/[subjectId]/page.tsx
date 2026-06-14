@@ -13,7 +13,11 @@ export default async function insertPostPage({ params }: insertPostPageProps) {
       subjectId: id
     }
   })
-  const users = await prisma.user.findMany();
+  const users = await prisma.user.findMany({
+    where: {
+      activate: true
+    }
+  });
 
   const createPostSubjectId = createPost.bind(null, id);
 

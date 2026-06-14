@@ -14,6 +14,7 @@ model User {
   id       Int    @id @default(autoincrement())
   name     String @unique
   parents  Boolean
+  activate Boolean
   posts    Post[] // 한 유저가 여러 포스트를 가질 수 있음 (역방향 관계)
 }
 

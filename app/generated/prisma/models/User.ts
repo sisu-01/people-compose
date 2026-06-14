@@ -38,18 +38,21 @@ export type UserMinAggregateOutputType = {
   id: number | null
   name: string | null
   parents: boolean | null
+  activate: boolean | null
 }
 
 export type UserMaxAggregateOutputType = {
   id: number | null
   name: string | null
   parents: boolean | null
+  activate: boolean | null
 }
 
 export type UserCountAggregateOutputType = {
   id: number
   name: number
   parents: number
+  activate: number
   _all: number
 }
 
@@ -66,18 +69,21 @@ export type UserMinAggregateInputType = {
   id?: true
   name?: true
   parents?: true
+  activate?: true
 }
 
 export type UserMaxAggregateInputType = {
   id?: true
   name?: true
   parents?: true
+  activate?: true
 }
 
 export type UserCountAggregateInputType = {
   id?: true
   name?: true
   parents?: true
+  activate?: true
   _all?: true
 }
 
@@ -171,6 +177,7 @@ export type UserGroupByOutputType = {
   id: number
   name: string
   parents: boolean
+  activate: boolean
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -200,6 +207,7 @@ export type UserWhereInput = {
   id?: Prisma.IntFilter<"User"> | number
   name?: Prisma.StringFilter<"User"> | string
   parents?: Prisma.BoolFilter<"User"> | boolean
+  activate?: Prisma.BoolFilter<"User"> | boolean
   posts?: Prisma.PostListRelationFilter
 }
 
@@ -207,6 +215,7 @@ export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   parents?: Prisma.SortOrder
+  activate?: Prisma.SortOrder
   posts?: Prisma.PostOrderByRelationAggregateInput
 }
 
@@ -217,6 +226,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   parents?: Prisma.BoolFilter<"User"> | boolean
+  activate?: Prisma.BoolFilter<"User"> | boolean
   posts?: Prisma.PostListRelationFilter
 }, "id" | "name">
 
@@ -224,6 +234,7 @@ export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   parents?: Prisma.SortOrder
+  activate?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -238,11 +249,13 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   parents?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  activate?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
 }
 
 export type UserCreateInput = {
   name: string
   parents: boolean
+  activate: boolean
   posts?: Prisma.PostCreateNestedManyWithoutUserInput
 }
 
@@ -250,12 +263,14 @@ export type UserUncheckedCreateInput = {
   id?: number
   name: string
   parents: boolean
+  activate: boolean
   posts?: Prisma.PostUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   parents?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  activate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   posts?: Prisma.PostUpdateManyWithoutUserNestedInput
 }
 
@@ -263,6 +278,7 @@ export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   parents?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  activate?: Prisma.BoolFieldUpdateOperationsInput | boolean
   posts?: Prisma.PostUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -270,23 +286,27 @@ export type UserCreateManyInput = {
   id?: number
   name: string
   parents: boolean
+  activate: boolean
 }
 
 export type UserUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   parents?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  activate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   parents?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  activate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   parents?: Prisma.SortOrder
+  activate?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -297,12 +317,14 @@ export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   parents?: Prisma.SortOrder
+  activate?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   parents?: Prisma.SortOrder
+  activate?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -347,12 +369,14 @@ export type UserUpdateOneRequiredWithoutPostsNestedInput = {
 export type UserCreateWithoutPostsInput = {
   name: string
   parents: boolean
+  activate: boolean
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
   id?: number
   name: string
   parents: boolean
+  activate: boolean
 }
 
 export type UserCreateOrConnectWithoutPostsInput = {
@@ -374,12 +398,14 @@ export type UserUpdateToOneWithWhereWithoutPostsInput = {
 export type UserUpdateWithoutPostsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   parents?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  activate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   parents?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  activate?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 
@@ -417,6 +443,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   id?: boolean
   name?: boolean
   parents?: boolean
+  activate?: boolean
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -425,21 +452,24 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   name?: boolean
   parents?: boolean
+  activate?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   parents?: boolean
+  activate?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
   id?: boolean
   name?: boolean
   parents?: boolean
+  activate?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "parents", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "parents" | "activate", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   posts?: boolean | Prisma.User$postsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -456,6 +486,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: number
     name: string
     parents: boolean
+    activate: boolean
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -883,6 +914,7 @@ export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'Int'>
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly parents: Prisma.FieldRef<"User", 'Boolean'>
+  readonly activate: Prisma.FieldRef<"User", 'Boolean'>
 }
     
 
