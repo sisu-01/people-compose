@@ -20,7 +20,7 @@ const Section = ({ title, data }: { title: string, data: Subject[] }) => (
               </span>
               {subject.insert && (
                 <span className="px-2 py-0.5 text-[10px] font-bold tracking-wider uppercase bg-red-100 text-red-600 rounded-full">
-                  new
+                  edit
                 </span>
               )}
             </div>
