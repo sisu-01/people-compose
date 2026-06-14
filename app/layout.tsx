@@ -24,16 +24,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
-        <div>
-          <Link href="/">P</Link>
-          <Link href="/insert">등록</Link>
-        </div>
-        {children}
+    <html lang="ko" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+      <body className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
+        {/* Navigation Bar */}
+        <header className="sticky top-0 z-10 bg-white border-b border-gray-200 shadow-sm">
+          <div className="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+            <Link href="/" className="text-xl font-extrabold text-blue-600 tracking-tighter">
+              P
+            </Link>
+            <Link href="/insert" className="text-sm font-semibold text-gray-600 hover:text-blue-600 transition-colors">
+              등록
+            </Link>
+          </div>
+        </header>
+
+        {/* Main Content Container */}
+        <main className="flex-1 max-w-5xl mx-auto w-full px-4 py-8">
+          {children}
+        </main>
       </body>
     </html>
   );
