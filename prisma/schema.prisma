@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// 1. User 모델 (common.models.User에 해당)
+// 원본 코드에 User 스키마가 없어서 기본형으로 가짜 생성해 두었습니다. 
+// 실제 쓰시던 필드에 맞게 수정하세요.
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  parents  Boolean
+  posts    Post[] // 한 유저가 여러 포스트를 가질 수 있음 (역방향 관계)
+}
+
+enum SubjectType {
+  B
+  D
+  R
+}
+
+// 2. Subject 모델
+model Subject {
+  id     Int     @id @default(autoincrement())
+  title  String  @db.VarChar(20)
+  order  Int
+  type   SubjectType
+  insert Boolean
+  ranges Range[] // 1:N 역방향 관계
+}
+
+// 3. Range 모델
+model Range {
+  id        Int       @id @default(autoincrement())
+  subjectId Int?      // ForeignKey를 위한 실제 저장 컬럼
+  start_num Int?
+  end_num   Int?
+  desc      String?   @db.VarChar(20)
+  date      DateTime? @db.Date
+
+  // Django의 ForeignKey(Subject)
+  subject   Subject?  @relation(fields: [subjectId], references: [id], onDelete: SetNull)
+  posts     Post[]    // 1:N 역방향 관계
+}
+
+// 4. Post 모델
+model Post {
+  id       Int    @id @default(autoincrement())
+  rangeId  Int?
+  userId   Int
+  contents String @db.Text
+
+  // Django의 ForeignKey(Range, null=True, on_delete=SET_NULL)
+  range    Range? @relation(fields: [rangeId], references: [id], onDelete: SetNull)
+  
+  // Django의 ForeignKey(User, on_delete=CASCADE)
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
