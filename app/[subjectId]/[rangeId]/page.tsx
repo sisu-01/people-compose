@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     description: subjectTitle, // 페이지 설명
     openGraph: {
       title: title,
-      description: `${subjectTitle} - ${title}`,
+      description: subjectTitle,
     },
   };
 }

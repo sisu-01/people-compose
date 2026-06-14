@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
-import prisma from "@/lib/prisma";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,27 +16,29 @@ const geistMono = Geist_Mono({
 const TITLE = "피플 컴포즈";
 const DESCRIPTION = "기록 보관소";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const imageRecord = await prisma.image.findUnique({
-    where: { id: 1 },
-  });
-  const imageUrl = imageRecord?.url || '/default-og-image.jpg'; // 폴백 이미지 설정
-
-  return {
-    metadataBase: new URL('https://www.lol-updown.com'),
-    alternates: {
-      canonical: '/',
-    },
+export const metadata: Metadata = {
+  metadataBase: new URL('https://www.lol-updown.com'),
+  alternates: {
+    canonical: '/',
+  },
+  title: TITLE,
+  description: DESCRIPTION,
+  applicationName: TITLE,
+  openGraph: {
     title: TITLE,
     description: DESCRIPTION,
-    applicationName: TITLE,
-    openGraph: {
-      title: TITLE,
-      description: DESCRIPTION,
-      url: imageUrl,
-      siteName: TITLE,
-      type: "website",
-    }
+    siteName: TITLE,
+    type: "website",
+  },
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
   }
 };
 
