@@ -17,7 +17,7 @@ const TITLE = "피플 컴포즈";
 const DESCRIPTION = "기록 보관소";
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.lol-updown.com'),
+  metadataBase: new URL(`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`),
   alternates: {
     canonical: '/',
   },
