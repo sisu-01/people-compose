@@ -5,7 +5,11 @@ export default async function InsertListPage() {
   const subjects = await prisma.subject.findMany({
     where: {
       insert: true
-    }
+    },
+    orderBy: [
+      { type: 'desc' },
+      { id: 'desc' },
+    ]
   });
 
   return (

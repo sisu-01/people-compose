@@ -8,11 +8,20 @@ interface RangeListPageProps {
 export default async function RangeListPage({ params }: RangeListPageProps) {
   const { subjectId } = await params;
   const id = Number(subjectId);
-  const ranges = await prisma.range.findMany({
+
+  const subject = await prisma.subject.findUnique({
     where: {
-      subjectId: id,
+      id: id,
+    },
+    include: {
+      ranges: {
+        orderBy: {
+          id: 'desc'
+        }
+      },
     }
   });
+  const ranges = subject?.ranges ?? [];
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
@@ -21,7 +30,11 @@ export default async function RangeListPage({ params }: RangeListPageProps) {
           &larr; 목록으로
         </Link>
         <h1 className="text-2xl font-bold text-gray-900">
-          <span className="text-blue-600">{subjectId}</span>의 Range 목록
+          {subject ? (
+            <span className="text-blue-600">{subject.title}</span>
+          ) : (
+            <span>데이터를 찾을 수 없습니다.</span>
+          )}
         </h1>
       </div>
 

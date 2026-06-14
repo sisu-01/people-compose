@@ -8,11 +8,20 @@ interface InsertPostPageProps {
 export default async function InsertPostPage({ params }: InsertPostPageProps) {
   const { subjectId } = await params;
   const id = Number(subjectId);
-  const ranges = await prisma.range.findMany({
+  const subject = await prisma.subject.findUnique({
     where: {
-      subjectId: id
+      id: id,
+    },
+    include: {
+      ranges: {
+        orderBy: {
+          id: 'desc'
+        }
+      },
     }
   });
+  const ranges = subject?.ranges ?? [];
+
   const users = await prisma.user.findMany({
     where: {
       activate: true
@@ -23,12 +32,11 @@ export default async function InsertPostPage({ params }: InsertPostPageProps) {
 
   return (
     <div className="max-w-xl mx-auto bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-200">
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">포스트 등록</h1>
-      <p className="text-sm text-gray-500 mb-8">주제 ID: {subjectId}</p>
+      <h1 className="text-2xl font-bold text-blue-600 mb-2">{subject?.title}</h1>
 
       <form action={createPostSubjectId} className="space-y-6">
         <div className="space-y-2">
-          <label className="block text-sm font-semibold text-gray-700">범위 (Range)</label>
+          <label className="block text-sm font-semibold text-gray-700">범위</label>
           <select 
             name="rangeId" 
             className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
@@ -47,6 +55,7 @@ export default async function InsertPostPage({ params }: InsertPostPageProps) {
             name="userId"
             className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
           >
+            <option>------</option>
             {users.map((user) => (
               <option key={user.id} value={user.id}>
                 {user.name}

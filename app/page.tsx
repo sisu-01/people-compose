@@ -32,7 +32,11 @@ const Section = ({ title, data }: { title: string, data: Subject[] }) => (
 );
 
 export default async function Home() {
-  const subjects = await prisma.subject.findMany();
+  const subjects = await prisma.subject.findMany({
+    orderBy: {
+      id: 'desc',
+    },
+  });
 
   // 각 타입별로 데이터를 미리 필터링합니다.
   const bookSubjects = subjects.filter((s) => s.type === 'B');
@@ -42,9 +46,9 @@ export default async function Home() {
 
   return (
     <div className="space-y-6">
-      <Section title="책" data={bookSubjects} />
-      <Section title="드라마" data={dramaSubjects} />
       <Section title="인지" data={rangeSubjects} />
+      <Section title="드라마" data={dramaSubjects} />
+      <Section title="책" data={bookSubjects} />
     </div>
   );
 }
