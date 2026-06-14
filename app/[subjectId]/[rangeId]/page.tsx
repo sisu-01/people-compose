@@ -56,8 +56,6 @@ export default async function PostPage({ params }: PostPageProps) {
   const childPosts = posts.filter((p) => p.user.isParent === 0);
   const parentsPosts = posts.filter((p) => p.user.isParent === 1);
 
-  console.log(range.subject?.title);
-
   // subjectId를 기준으로 이전/다음 레코드를 조회합니다.
   const [prevRange, nextRange] = await Promise.all([
     prisma.range.findFirst({
