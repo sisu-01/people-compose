@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import PostAccordion from "@/components/postItem";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
@@ -6,6 +7,27 @@ interface PostPageProps {
   params: Promise<{ subjectId: string, rangeId: string }>;
 }
 
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const { rangeId } = await params;
+  const id = Number(rangeId);
+
+  const range = await prisma.range.findUnique({
+    where: { id: id },
+    include: { subject: true }, // subject 정보를 가져와야 타이틀에 사용 가능
+  });
+
+  const title = range?.desc ? range.desc : `${range?.start_num} ~ ${range?.end_num}`;
+  const subjectTitle = range?.subject?.title || "기록 보관소";
+
+  return {
+    title: title, // 브라우저 탭에 표시될 제목
+    description: subjectTitle, // 페이지 설명
+    openGraph: {
+      title: title,
+      description: `${subjectTitle} - ${title}`,
+    },
+  };
+}
 export default async function PostPage({ params }: PostPageProps) {
   const { subjectId, rangeId } = await params;
   const id = Number(rangeId);
@@ -15,6 +37,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const range = await prisma.range.findUnique({
     where: { id: id },
     include: {
+      subject: true,
       posts: {
         include: {
           user: true,
@@ -33,6 +56,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const childPosts = posts.filter((p) => p.user.isParent === 0);
   const parentsPosts = posts.filter((p) => p.user.isParent === 1);
 
+  console.log(range.subject?.title);
 
   // subjectId를 기준으로 이전/다음 레코드를 조회합니다.
   const [prevRange, nextRange] = await Promise.all([
