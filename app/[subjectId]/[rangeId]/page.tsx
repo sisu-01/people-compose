@@ -25,8 +25,9 @@ export default async function PostPage({ params }: PostPageProps) {
 
   // range 자체가 없거나(데이터 없음), posts가 비어있어도 안전하게 처리
   const posts = range?.posts ?? [];
-  const childPosts = posts.filter((p) => p.user.parents === false);
-  const parentsPosts = posts.filter((p) => p.user.parents === true);
+  const adminPosts = posts.filter((p) => p.user.isParent === null);
+  const childPosts = posts.filter((p) => p.user.isParent === 0);
+  const parentsPosts = posts.filter((p) => p.user.isParent === 1);
 
   if (!range) {
     return <div>해당 범위를 찾을 수 없습니다.</div>
@@ -40,6 +41,7 @@ export default async function PostPage({ params }: PostPageProps) {
       <h1 className="text-2xl font-bold text-gray-900">
         <span className="text-blue-600">{range?.desc ? range.desc : `${range?.start_num} ~ ${range?.end_num}`}</span>
       </h1>
+      <PostAccordion title="자료" data={adminPosts} />
       <PostAccordion title="청년" data={childPosts} />
       <PostAccordion title="부모" data={parentsPosts} />
     </div>

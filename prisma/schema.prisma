@@ -13,8 +13,9 @@ datasource db {
 model User {
   id       Int    @id @default(autoincrement())
   name     String @unique
-  parents  Boolean
-  activate Boolean
+  // 0: 부모 아님(No), 1: 부모임(Yes), null: 해당 없음(관리자 등)
+  isParent Int?
+  activate Boolean @default(true)
   posts    Post[] // 한 유저가 여러 포스트를 가질 수 있음 (역방향 관계)
 }
 
