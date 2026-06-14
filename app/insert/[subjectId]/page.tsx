@@ -25,7 +25,8 @@ export default async function InsertPostPage({ params }: InsertPostPageProps) {
   const users = await prisma.user.findMany({
     where: {
       activate: true
-    }
+    },
+    orderBy: { name: 'asc' }
   });
 
   const createPostSubjectId = createPost.bind(null, id);
