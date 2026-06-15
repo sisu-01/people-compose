@@ -12,7 +12,7 @@ datasource db {
 // 실제 쓰시던 필드에 맞게 수정하세요.
 model User {
   id       Int    @id @default(autoincrement())
-  name     String @unique
+  name     String
   // 0: 부모 아님(No), 1: 부모임(Yes), null: 해당 없음(관리자 등)
   isParent Int?
   activate Boolean @default(true)
