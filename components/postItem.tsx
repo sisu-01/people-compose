@@ -24,8 +24,11 @@ export default function PostAccordion({
 
   return (
     <div className="mb-8">
-      <h2 className="text-2xl font-bold mb-4">{title}</h2>
-
+      {title==="자료"? (
+        ''
+      ):(
+        <h2 className="text-2xl font-bold mb-4">{title}</h2>
+      )}
       <div className="space-y-2">
         {data.map((post, index) => {
           const isOpen = openIndex === index;

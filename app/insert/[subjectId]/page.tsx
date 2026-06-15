@@ -25,7 +25,8 @@ export default async function InsertPostPage({ params }: InsertPostPageProps) {
   const users = await prisma.user.findMany({
     where: {
       activate: true
-    }
+    },
+    orderBy: { name: 'asc' }
   });
 
   const createPostSubjectId = createPost.bind(null, id);
@@ -68,7 +69,7 @@ export default async function InsertPostPage({ params }: InsertPostPageProps) {
           <label className="block text-sm font-semibold text-gray-700">내용</label>
           <textarea
             name="contents"
-            rows={5}
+            rows={15}
             className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none resize-y focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
             placeholder="내용을 입력하세요..."
           />
